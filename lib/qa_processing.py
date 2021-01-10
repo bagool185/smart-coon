@@ -9,7 +9,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 class QAProcessingUtil:
 
     def __init__(self):
-        self.questions_source = os.path.join('data', 'qa.csv')
+        self.questions_source = os.path.join('../data', 'qa.csv')
         self.questions_limit = 10
         self.__parse_questions()
 

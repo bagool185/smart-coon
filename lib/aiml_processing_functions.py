@@ -2,7 +2,7 @@ import wikipedia
 import pandas as pd
 import os
 import yfinance as yf
-from utils import *
+from lib.utils import *
 
 
 def print_historical_market_data(stock_symbol: str):
@@ -11,7 +11,7 @@ def print_historical_market_data(stock_symbol: str):
         return
 
     try:
-        base_dir = "output_files"
+        base_dir = ""
         filename = os.path.join(base_dir, f"{stock_symbol}-market-history.csv")
         historical_market_data: pd.DataFrame = yf.Ticker(stock_symbol.upper()).history()
 

@@ -1,6 +1,6 @@
 import aiml
-from aiml_processing_functions import *
-from qa_processing import QAProcessingUtil
+from lib.aiml_processing_functions import *
+from lib.qa_processing import QAProcessingUtil
 
 
 def main():
