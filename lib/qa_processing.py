@@ -1,4 +1,3 @@
-import os
 from typing import List
 import pandas as pd
 import numpy as np
@@ -8,8 +7,8 @@ from sklearn.metrics.pairwise import cosine_similarity
 
 class QAProcessingUtil:
 
-    def __init__(self):
-        self.questions_source = os.path.join('../data', 'qa.csv')
+    def __init__(self, data_file: str):
+        self.questions_source = data_file
         self.questions_limit = 10
         self.__parse_questions()
 
