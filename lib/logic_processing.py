@@ -11,8 +11,11 @@ class LogicProcessingUtil:
         self.__initialise_knowledge_base()
 
     def __initialise_knowledge_base(self):
-        data = pandas.read_csv(self.knowledge_base_doc, header=None)
-        [self.knowledge_base.append(self.__read_expression(row)) for row in data[0]]
+        try:
+            data = pandas.read_csv(self.knowledge_base_doc, header=None)
+            [self.knowledge_base.append(self.__read_expression(row)) for row in data[0]]
+        except pandas.errors.EmptyDataError:
+            print('Missing knowledge base file')
 
     @staticmethod
     def __read_expression(expression: str) -> Expression:

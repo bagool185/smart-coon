@@ -1,6 +1,7 @@
-from aiml_processing_util import *
-from qa_processing import QAProcessingUtil
-from translation_util import TranslationUtil
+from lib.aiml_processing_util import *
+from lib.language_result_item import LanguageResultItem
+from lib.qa_processing import QAProcessingUtil
+from lib.translation_util import TranslationUtil
 
 
 def get_user_input() -> str or None:
@@ -13,7 +14,10 @@ def get_user_input() -> str or None:
 
 def main():
 
-    aiml_processing_util = AIMLProcessingUtil(aiml_file='data/my-bot.xml', knowledge_base_doc='data/knowledge-base.csv')
+    translation_util = TranslationUtil()
+    aiml_processing_util = AIMLProcessingUtil(aiml_file='data/my-bot.xml',
+                                              knowledge_base_doc='data/knowledge-base.csv',
+                                              translation_util=translation_util)
 
     print("Hi! I am your investing assistant. Ask me things related to investing and I shall answer.")
 
@@ -23,6 +27,17 @@ def main():
 
     while user_input is not None:
 
+        detected_language: LanguageResultItem = translation_util.detect_language(source_text=user_input)
+        # If not English
+        if detected_language.iso6391_name != 'en':
+            user_input = translation_util.translate_text(source_text=user_input,
+                                                         to_lang='en',
+                                                         from_lang=detected_language.iso6391_name)
+
+            aiml_processing_util.set_language(detected_language.iso6391_name)
+
+        print(f'####Translated thing: {user_input} ####')
+
         answer = qa_processing_util.get_closest_matching_answer(text_to_compare=user_input)
         # if there was no close match, pass it to AIML
         if answer is None:
@@ -31,19 +46,19 @@ def main():
         if answer != '' and answer[0] == '#':
             aiml_processing_util.post_process_answer(answer)
         else:
-            print(answer)
+
+            if detected_language.iso6391_name != 'en':
+                translated_answer = translation_util.translate_text(source_text=answer,
+                                                                    to_lang='en',
+                                                                    from_lang=detected_language.iso6391_name)
+                print(translated_answer)
+            else:
+                print(answer)
 
         user_input = get_user_input()
 
 
 if __name__ == "__main__":
-    # main()
+    main()
 
-    translation_util = TranslationUtil()
-    detected_language_thingie = translation_util.detect_language('Idek what this is anymore')
-
-    if detected_language_thingie is not None:
-        print(detected_language_thingie.name)
-        print(detected_language_thingie.score)
-        print(detected_language_thingie.iso6391_name)
 

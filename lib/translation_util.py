@@ -6,8 +6,8 @@ from azure.cognitiveservices.language.textanalytics import TextAnalyticsClient
 from azure.cognitiveservices.language.textanalytics.models import LanguageInput
 from msrest.authentication import CognitiveServicesCredentials
 
-from environment import Environment
-from language_result_item import LanguageResultItem
+from .environment import Environment
+from .language_result_item import LanguageResultItem
 
 
 class TranslationUtil:
@@ -60,14 +60,4 @@ class TranslationUtil:
         response_content = response.json()
 
         return response_content[0]['translations'][0]['text']
-
-
-if __name__ == '__main__':
-    translation_util = TranslationUtil()
-    text = 'Idek what this is anymore'
-    detected_language_thingie = translation_util.detect_language(text)
-
-    if detected_language_thingie is not None:
-
-        print(translation_util.translate_text(source_text=text, from_lang=detected_language_thingie.iso6391_name, to_lang='fr'))
 
