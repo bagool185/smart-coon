@@ -1,5 +1,6 @@
 from aiml_processing_util import *
 from qa_processing import QAProcessingUtil
+from translation_util import TranslationUtil
 
 
 def get_user_input() -> str or None:
@@ -36,4 +37,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+
+    translation_util = TranslationUtil()
+    detected_language_thingie = translation_util.detect_language('Idek what this is anymore')
+
+    if detected_language_thingie is not None:
+        print(detected_language_thingie.name)
+        print(detected_language_thingie.score)
+        print(detected_language_thingie.iso6391_name)
+
