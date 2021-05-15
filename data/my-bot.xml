@@ -16,6 +16,9 @@
 <category> <pattern> HOW ARE YOU </pattern>
   <template>Ducking and diving - ducking and diving</template></category>
 
+<category> <pattern> HOW'S IT GOING </pattern>
+  <template>Ducking and diving - ducking and diving</template></category>
+
 <category><pattern> I AM * ALRIGHT </pattern>
   <template>That's good to know. What would you like to discuss about?</template></category>
 
@@ -70,11 +73,16 @@
   <template><srai>WHAT IS A <star/></srai></template></category>
 
 <!-- Logic input -->
+
 <category><pattern> I KNOW THAT * IS *</pattern>
   <template>#31$<star index="1"/> is <star index="2"/></template></category>
 
 <category><pattern> CHECK THAT * IS *</pattern>
   <template>#32$<star index="1"/> is <star index="2"/></template></category>
+
+<category><pattern> I KNOW * IS *</pattern>
+  <template>#33$<star index="1"/> is <star index="2"/></template></category>
+
 
 
 <!-- Default reaction -->

@@ -22,7 +22,6 @@ class AIMLProcessingUtil:
         self.language = language
 
     def __print(self, message: str):
-        print(self.language)
         if self.language != 'en':
             translated_message = self.translation_util.translate_text(source_text=message, from_lang='en',
                                                                       to_lang=self.language)

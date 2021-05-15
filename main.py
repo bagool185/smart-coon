@@ -36,8 +36,6 @@ def main():
 
             aiml_processing_util.set_language(detected_language.iso6391_name)
 
-        print(f'####Translated thing: {user_input} ####')
-
         answer = qa_processing_util.get_closest_matching_answer(text_to_compare=user_input)
         # if there was no close match, pass it to AIML
         if answer is None:
